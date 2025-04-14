@@ -194,4 +194,34 @@ document.addEventListener('DOMContentLoaded', function () {
         updateTaskCounter(); // Update the counters
         renderTasks(); // Re-render the task list
     });
+
+    // Star generation logic
+    const starsContainer = document.getElementById('stars-container');
+    let starCount = 0;
+
+    function createStar() {
+        if (starCount >= 1000) return; // Limit to 200 stars
+
+        const star = document.createElement('div');
+        star.className = 'star';
+
+        // Randomize position
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+
+        star.style.left = `${x}px`;
+        star.style.top = `${y}px`;
+
+        starsContainer.appendChild(star);
+        starCount++;
+
+        // Remove the star after 1 second
+        setTimeout(() => {
+            star.remove();
+            starCount--;
+        }, 1000);
+    }
+
+    // Generate stars at random intervals
+    setInterval(createStar, 25); // Generate stars more frequently
 });

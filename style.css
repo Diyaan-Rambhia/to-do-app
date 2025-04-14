@@ -52,6 +52,42 @@ h1, h2, p {
     z-index: -1; /* Place behind all content */
 }
 
+/* Stars container */
+#stars-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none; /* Prevent interaction with stars */
+    z-index: -1; /* Ensure stars are behind everything */
+}
+
+/* Individual star */
+.star {
+    position: absolute;
+    width: 2px; /* Small size for stars */
+    height: 2px;
+    background-color: white;
+    border-radius: 50%; /* Make the stars circular */
+    opacity: 0; /* Start invisible */
+    animation: fade-in-out 1s ease-in-out forwards; /* Fade in and out */
+}
+
+/* Animation for fading in and out */
+@keyframes fade-in-out {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 /* Animation for flowing stars */
 @keyframes moveStars {
     0% {
