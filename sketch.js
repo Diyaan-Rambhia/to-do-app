@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let starCount = 0;
 
     function createStar() {
-        if (starCount >= 1000) return; // Limit to 200 stars
+        if (starCount >= 1000) return;
 
         const star = document.createElement('div');
         star.className = 'star';
@@ -223,5 +223,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Generate stars at random intervals
-    setInterval(createStar, 25); // Generate stars more frequently
+    setInterval(createStar, 20); // Generate stars more frequently
+});
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        // Find all open dropdown menus and close them
+        const openDropdowns = document.querySelectorAll('.dropdown-menu');
+        openDropdowns.forEach((dropdown) => {
+            dropdown.style.display = 'none';
+        });
+    }
 });

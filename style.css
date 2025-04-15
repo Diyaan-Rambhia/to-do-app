@@ -601,7 +601,6 @@ h1, h2, p {
     transform: translateX(-50%); /* Adjust for perfect centering */
     text-align: center;
     color: #00d4ff;
-    text-decoration: underline;
     cursor: pointer;
 }
 
@@ -855,7 +854,6 @@ h1, h2, p {
     border: none;
     color: #00d4ff;
     cursor: pointer;
-    text-decoration: underline;
 }
 
 #task-counter {
@@ -931,6 +929,14 @@ h1, h2, p {
     color: #d1d1d1;
     margin-right: 10px;
     position: relative;
+    cursor: pointer;
+    width: 30px; /* Expand the clickable width */
+    height: 30px; /* Expand the clickable height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; /* Optional: Make it circular */
+    background-color: transparent; /* Ensure no visible background */
 }
 
 /* Dropdown menu */
