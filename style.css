@@ -8,7 +8,7 @@
 /* Ensure the body takes up the full screen size without scrolling */
 body {
     margin: 0;
-    padding: 0;
+    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,8 +17,9 @@ body {
     overflow: hidden; /* Prevent scrolling */
     background: linear-gradient(135deg, #1a1a3d, #0a0a23); /* Dark space-like background */
     color: #d1d1d1;
-    font-family: 'Orbitron', sans-serif;
+    font-family: Arial, sans-serif;
     position: relative;
+    background-color: #1a1a1a;
 }
 
 h1, h2, p {
@@ -61,14 +62,14 @@ h1, h2, p {
     height: 100%;
     overflow: hidden;
     pointer-events: none; /* Prevent interaction with stars */
-    z-index: -1; /* Ensure stars are behind everything */
+    z-index: -1; /* Ensure stars are behind other content */
 }
 
 /* Individual star */
 .star {
     position: absolute;
-    width: 2px; /* Small size for stars */
-    height: 2px;
+    width: 3px; /* Size of the star */
+    height: 3px;
     background-color: white;
     border-radius: 50%; /* Make the stars circular */
     opacity: 0; /* Start invisible */
@@ -136,9 +137,9 @@ h1, h2, p {
 
 #task-input {
     flex-grow: 1; /* Allow the input to take up the remaining space */
-    padding: 12px 15px;
-    border: 1px solid #e0d7cc;
-    border-radius: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     font-size: 16px; /* Slightly larger font size */
     background-color: #f0ebe4;
     color: #7a6c5d;
@@ -160,8 +161,8 @@ h1, h2, p {
 #category-select {
     flex: 0 0 auto; /* Prevent the dropdown from stretching */
     padding: 10px;
-    border: 1px solid #e0d7cc;
-    border-radius: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     font-size: 14px;
     background-color: #f7f3ee;
     color: #7a6c5d;
@@ -343,8 +344,8 @@ h1, h2, p {
 
 .task-item {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     background: rgba(255, 255, 255, 0.1);
     padding: 10px 15px;
     margin-bottom: 10px;
@@ -353,12 +354,19 @@ h1, h2, p {
     font-size: 16px;
 }
 
-.task-item .task-checkbox {
-    margin-right: 10px;
-}
-
 .task-item .task-text {
     flex-grow: 1;
+    color: #d1d1d1; /* Ensure the text is visible */
+}
+
+.task-item .task-category {
+    font-size: 12px;
+    color: #00d4ff; /* Neon blue for category */
+    margin-left: 10px;
+}
+
+.task-item .task-checkbox {
+    margin-right: 10px;
 }
 
 .task-item .delete-btn {
@@ -372,6 +380,12 @@ h1, h2, p {
 
 .task-item .delete-btn:hover {
     transform: scale(1.2);
+}
+
+.task-item .task-category {
+    font-size: 12px;
+    color: #00d4ff; /* Neon blue for category */
+    margin-left: 10px;
 }
 
 .task-item:active {
@@ -606,15 +620,11 @@ h1, h2, p {
 
 /* Empty state */
 .empty-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    color: #d1d1d1; /* Light text color */
+    display: none; /* Hide the empty state by default */
     text-align: center;
-    height: 200px;
+    color: #d1d1d1; /* Light text color */
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    margin-top: 20px;
 }
 
 .plant-illustration {
@@ -758,15 +768,10 @@ h1, h2, p {
 
 /* Due date feature */
 .due-date {
-    font-size: 11px;
-    color: #b48976;
-    margin-top: 2px;
-}
-
-.due-date::before {
-    content: "📅";
-    margin-right: 4px;
-    font-size: 10px;
+    font-size: 12px;
+    color: #bdb4aa;
+    margin-top: 5px;
+    display: block;
 }
 
 .due-date.overdue {
@@ -843,6 +848,7 @@ h1, h2, p {
 
 /* Task list */
 #tasks-list {
+    display: block; /* Ensure the task list is visible by default */
     width: 100%; /* Ensure it spans the full width of the container */
     max-height: 400px; /* Increase the height for more tasks */
     overflow-y: auto; /* Add scrolling for long task lists */
@@ -889,7 +895,7 @@ h1, h2, p {
 
 .modal-content {
     background-color: #1a1a3d;
-    margin: 10% auto; /* Center the modal vertically */
+    margin: 5% auto; /* Reduce vertical margin for better alignment */
     padding: 20px;
     border-radius: 10px;
     width: 80%; /* Adjust width as needed */
@@ -897,7 +903,7 @@ h1, h2, p {
     color: #d1d1d1;
     box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
     overflow-y: auto; /* Enable scrolling inside the modal */
-    max-height: 70vh; /* Limit the height of the modal */
+    max-height: 90vh; /* Increase the height of the modal */
 }
 
 .modal-content h2 {
@@ -966,4 +972,239 @@ h1, h2, p {
 .dropdown-menu .menu-option:hover {
     background-color: #00d4ff;
     color: #0a0a23;
+}
+
+#modal-task-input {
+    width: 100%;
+    min-height: 200px; /* Minimum height for the text editor */
+    max-height: 600px; /* Maximum height for the text editor */
+    padding: 15px; /* Add padding for better spacing */
+    margin-bottom: 15px;
+    font-size: 16px;
+    border: 2px solid #00d4ff; /* Neon blue border */
+    border-radius: 10px; /* Rounded corners */
+    box-sizing: border-box;
+    resize: none; /* Disable manual resizing */
+    overflow-y: auto; /* Add a scrollbar if content exceeds max height */
+    background-color: rgba(10, 10, 35, 0.9); /* Dark, semi-transparent background */
+    color: #d1d1d1; /* Light text color */
+    line-height: 1.5; /* Adjust line spacing for readability */
+    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5); /* Subtle glow effect for text */
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3); /* Neon glow around the editor */
+    transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+#modal-task-input:focus {
+    outline: none;
+    border-color: #00ffff; /* Brighter neon blue on focus */
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6); /* Stronger glow on focus */
+    background-color: rgba(15, 15, 50, 0.95); /* Slightly brighter background on focus */
+}
+
+#modal-task-input::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* Light, semi-transparent placeholder text */
+    text-shadow: 0 0 5px rgba(0, 212, 255, 0.3); /* Subtle glow for placeholder */
+    font-style: italic; /* Add a futuristic italic style */
+}
+
+#modal-category-select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border: 2px solid #00d4ff; /* Neon blue border */
+    border-radius: 10px; /* Rounded corners */
+    box-sizing: border-box;
+    background-color: rgba(10, 10, 35, 0.9); /* Dark, semi-transparent background */
+    color: #d1d1d1; /* Light text color */
+    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5); /* Subtle glow effect for text */
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3); /* Neon glow around the dropdown */
+    transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+#modal-category-select:focus {
+    outline: none;
+    border-color: #00ffff; /* Brighter neon blue on focus */
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6); /* Stronger glow on focus */
+    background-color: rgba(15, 15, 50, 0.95); /* Slightly brighter background on focus */
+}
+
+#modal-due-date,
+#modal-due-time {
+    width: 100%;
+    padding: 8px 12px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    background: transparent;
+    color: #00d4ff;
+    border: 1px solid #00d4ff;
+    border-radius: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
+}
+
+#modal-due-date:hover,
+#modal-due-time:hover,
+#modal-due-date:focus,
+#modal-due-time:focus {
+    background-color: #00d4ff;
+    color: #0a0a23;
+    box-shadow: 0 0 5px #00d4ff, 0 0 10px #00d4ff;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) brightness(0.7) sepia(100%) saturate(10000%) hue-rotate(175deg);
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+label[for="modal-due-date"],
+label[for="modal-due-time"] {
+    color: #00d4ff;
+    margin-bottom: 5px;
+    display: block;
+    font-size: 14px;
+    text-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
+}
+
+#modal-due-date,
+#modal-due-time {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border: 2px solid #00d4ff; /* Neon blue border */
+    border-radius: 10px; /* Rounded corners */
+    box-sizing: border-box;
+    background-color: rgba(10, 10, 35, 0.9); /* Dark, semi-transparent background */
+    color: #d1d1d1; /* Light text color */
+    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5); /* Subtle glow effect for text */
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3); /* Neon glow around the input */
+    transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+#modal-due-date:focus,
+#modal-due-time:focus {
+    outline: none;
+    border-color: #00ffff; /* Brighter neon blue on focus */
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6); /* Stronger glow on focus */
+    background-color: rgba(15, 15, 50, 0.95); /* Slightly brighter background on focus */
+}
+
+/* Style for the due date and due time inputs */
+input[type="date"], input[type="time"] {
+    background: transparent; /* Match the tag button background */
+    color: #00d4ff; /* Neon blue text color */
+    border: 1px solid #00d4ff; /* Neon blue border */
+    border-radius: 20px; /* Rounded corners like the tag button */
+    padding: 8px 12px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease; /* Smooth transition for hover/focus effects */
+    text-align: center; /* Center-align the text */
+    cursor: pointer;
+}
+
+/* Add hover and focus effects */
+input[type="date"]:hover, input[type="time"]:hover,
+input[type="date"]:focus, input[type="time"]:focus {
+    background-color: #00d4ff; /* Neon blue background on hover/focus */
+    color: #0a0a23; /* Dark text color to contrast with the blue background */
+    box-shadow: 0 0 5px #00d4ff, 0 0 10px #00d4ff; /* Glow effect */
+    border-color: #00d4ff; /* Keep the border consistent */
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.modal-actions button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5); /* Subtle glow effect for text */
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3); /* Neon glow around the button */
+}
+
+#save-btn {
+    background-color: #00d4ff;
+    color: #fff;
+}
+
+#save-btn:hover {
+    background-color: #00a3cc;
+    box-shadow: 0 0 20px rgba(0, 163, 204, 0.6); /* Stronger glow on hover */
+}
+
+#complete-btn {
+    background-color: #8ec991;
+    color: #fff;
+}
+
+#complete-btn:hover {
+    background-color: #6ea374;
+    box-shadow: 0 0 20px rgba(110, 163, 116, 0.6); /* Stronger glow on hover */
+}
+
+#delete-btn {
+    background-color: #ff4d4d;
+    color: #fff;
+}
+
+#delete-btn:hover {
+    background-color: #cc3c3c;
+    box-shadow: 0 0 20px rgba(204, 60, 60, 0.6); /* Stronger glow on hover */
+}
+
+#modal-heading {
+    font-size: 24px; /* Adjust the font size as needed */
+    color: #00d4ff; /* Neon blue color */
+    text-align: center; /* Center the heading */
+    margin-bottom: 10px; /* Add spacing below the heading */
+    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5); /* Add a subtle glow effect */
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between; /* Align heading and close button */
+    align-items: center; /* Vertically center the content */
+    padding: 10px 15px;
+    background-color: #1a1a3d; /* Dark background for the header */
+    border-bottom: 1px solid #00d4ff; /* Add a border for separation */
+}
+
+#modal-heading {
+    font-size: 24px; /* Adjust the font size */
+    color: #00d4ff; /* Neon blue color */
+    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5); /* Subtle glow effect */
+    margin: 0; /* Remove default margin */
+}
+
+.close-btn {
+    font-size: 20px;
+    color: #ff4d4d; /* Red color for the close button */
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #ff1a1a; /* Darker red on hover */
+}
+
+.upload-info {
+    font-size: 14px;
+    color: #00d4ff; /* Neon blue color */
+    text-align: center;
+    margin-bottom: 15px; /* Add spacing below the timestamp */
+    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5); /* Subtle glow effect */
 }
